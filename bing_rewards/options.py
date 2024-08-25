@@ -15,8 +15,8 @@ except metadata.PackageNotFoundError:
     __version = 'X.X.X+local'
 
 # Number of searches to make
-DESKTOP_COUNT = 33
-MOBILE_COUNT = 23
+DESKTOP_COUNT = 93
+MOBILE_COUNT = 63
 
 # Time to allow Chrome to load in seconds
 LOAD_DELAY = 1.5
@@ -29,17 +29,9 @@ URL = 'https://www.bing.com/search?form=QBRE&q='
 
 # Edge Browser user agents
 # Makes Google Chrome look like MS Edge to Bing
-MOBILE_AGENT = (
-    'Mozilla/5.0 (Linux; Android 14; Pixel 6 Build/AP2A.240605.024) '
-    'AppleWebKit/537.36 (KHTML, like Gecko) '
-    'Chrome/121.0.0.0 Mobile Safari/537.36 Edge/121.0.2277.138'
-)
+MOBILE_AGENT = 'Mozilla/5.0 (Android 14; Mobile; rv:129.0) Gecko/129.0 Firefox/129.0'
 
-DESKTOP_AGENT = (
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-    'AppleWebKit/537.36 (KHTML, like Gecko) '
-    'Chrome/126.0.0.0 Safari/537.36 Edge/126.0.0.0'
-)
+DESKTOP_AGENT = 'Mozilla/5.0 (Windows Phone 10.0; Android 6.0.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Mobile Safari/537.36 Edge/18.19041'
 
 
 @dataclasses.dataclass()
@@ -53,7 +45,7 @@ class Config:
     search_url: str = URL
     desktop_agent: str = DESKTOP_AGENT
     mobile_agent: str = MOBILE_AGENT
-    browser_path: str = 'chrome'
+    browser_path: str = 'firefox'
 
 
 def parse_args() -> Namespace:

@@ -45,10 +45,21 @@ Download the latest release wheel and install with pip locally.
 - [pynput](https://github.com/moses-palmer/pynput) (installed automatically). Used to control keypresses and type Bing search URLS.
 WARNING: This script *will* take control away from the keyboard while running. **Pynput** performs key presses. i.e., it does not operate headless or in the background.
 
-- `chrome` must be discoverable on the system PATH. [Download Google Chrome](https://www.google.com/intl/en/chrome/).
-If your chromium based browser has a different name use the `--exe` flag with an absolute path to the browser executable to use (e.g. `--exe=$(which brave-browser)`). Also see the `"browser-path"` key in the [config](#configuration) file.
+- ~~`chrome` must be discoverable on the system PATH. [Download Google Chrome](https://www.google.com/intl/en/chrome/).
+If your chromium based browser has a different name use the `--exe` flag with an absolute path to the browser executable to use (e.g. `--exe=$(which brave-browser)`). Also see the `"browser-path"` key in the [config](#configuration) file.~~
 
-- To earn points from searching, you *must* also have logged into [bing.com](https://www.bing.com) with your Microsoft account at least once, to save cookies.
+- `firefox` must be discoverable on the system PATH. usage of firefox allows for mobile browsing to be tracked and counted towards the search rewards
+
+- setting up a separate mobile profile in firefox:
+  - open a firefox browser, in the url go to `about:profiles`
+  - click `Create a New Profile` and name it `mobile`
+  - set your default profile to your old one (or `default-release`)
+  - under the `Profile: mobile`, click `Launch profile in new browser`
+  - in the **new** window, in the url go to `about:config` 
+  - search for `general.useragent.override` and click `String` and click the (+)
+  - fill in `Mozilla/5.0 (Windows Phone 10.0; Android 6.0.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Mobile Safari/537.36 Edge/18.19041` as the new value and save
+
+- To earn points from searching, you *must* also have logged into [bing.com](https://www.bing.com) with your Microsoft account at least once, to save cookies. Make sure to login to bing on both profiles for the search to count
 
 ## **Usage**
 Complete mobile and desktop daily points

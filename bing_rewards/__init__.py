@@ -87,6 +87,26 @@ def browser_cmd(exe: Path, agent: str, profile: str = '') -> list[str]:
         cmd.extend([f'--profile-directory={profile}'])
     return cmd
 
+def firefox_browser_cmd(exe: Path, mobile: bool) -> list[str]:
+    exe = Path(exe)
+    if exe.is_file() and exe.exists():
+        cmd = [str(exe.resolve())]
+    elif pth := shutil.which(exe):
+        cmd = [str(pth)]
+    else:
+        print(
+            f'Command "{exe}" could not be found.\n'
+            'Make sure it is available on PATH, '
+            'or use the --exe flag to give an absolute path.'
+        )
+        sys.exit(1)
+
+    cmd.extend(['--new-window'])
+    if mobile:
+        cmd.extend(['-P', 'mobile'])
+    print(" ".join(cmd))
+    return cmd
+
 
 def open_browser(cmd: list[str]) -> subprocess.Popen:
     """Try to open a browser, and exit if the command cannot be found.
@@ -122,14 +142,19 @@ def close_browser(chrome: subprocess.Popen | None):
     else:
         chrome.kill()
 
+def firefox_close_browser():
+    os.system('taskkill /f /im firefox.exe')
 
-def search(count: int, words_gen: Generator, agent: str, options: Namespace):
+def search(count: int, words_gen: Generator, agent: str, options: Namespace, mobile: bool):
     """Perform the actual searches in a browser.
 
     Open a chromium browser window with specified `agent` string, complete `count`
     searches from list `words`, finally terminate browser process on completion.
     """
-    cmd = browser_cmd(options.browser_path, agent, options.profile)
+    if options.browser_path == 'firefox':
+        cmd = firefox_browser_cmd(options.browser_path, mobile)
+    else:
+        cmd = browser_cmd(options.browser_path, agent, options.profile)
     chrome = None
     if not options.no_window and not options.dryrun:
         chrome = open_browser(cmd)
@@ -179,7 +204,10 @@ def search(count: int, words_gen: Generator, agent: str, options: Namespace):
     if options.no_exit:
         return
 
-    close_browser(chrome)
+    if options.browser_path == 'firefox':
+        firefox_close_browser()
+    else:
+        close_browser(chrome)
 
 
 def main():
@@ -198,7 +226,7 @@ def main():
         count = options.count if 'count' in options else options.desktop_count
         print(f'Doing {count} desktop searches')
 
-        search(count, words_gen, options.desktop_agent, options)
+        search(count, words_gen, options.desktop_agent, options, False)
         print('Desktop Search complete!\n')
 
     def mobile():
@@ -206,7 +234,7 @@ def main():
         count = options.count if 'count' in options else options.mobile_count
         print(f'Doing {count} mobile searches')
 
-        search(count, words_gen, options.mobile_agent, options)
+        search(count, words_gen, options.mobile_agent, options, True)
         print('Mobile Search complete!\n')
 
     def both():
