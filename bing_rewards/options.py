@@ -15,8 +15,8 @@ except metadata.PackageNotFoundError:
     __version = 'X.X.X+local'
 
 # Number of searches to make
-DESKTOP_COUNT = 93
-MOBILE_COUNT = 63
+DESKTOP_COUNT = 33
+MOBILE_COUNT = 23
 
 # Time to allow Chrome to load in seconds
 LOAD_DELAY = 1.5
