@@ -23,6 +23,8 @@ LOAD_DELAY = 1.5
 # Time between searches in seconds
 # Searches does not count if they are done earlier than ~6 seconds
 SEARCH_DELAY = 6
+SEARCH_DELAY_LOWER = 8
+SEARCH_DELAY_UPPER = 15
 
 # Bing Search base url, with new form= parameter (code differs per browser?)
 URL = 'https://www.bing.com/search?form=QBRE&q='
@@ -42,6 +44,8 @@ class Config:
     mobile_count: int = MOBILE_COUNT
     load_delay: float = LOAD_DELAY
     search_delay: float = SEARCH_DELAY
+    search_delay_lower: float = SEARCH_DELAY_LOWER
+    search_delay_upper: float = SEARCH_DELAY_UPPER
     search_url: str = URL
     desktop_agent: str = DESKTOP_AGENT
     mobile_agent: str = MOBILE_AGENT
@@ -103,6 +107,16 @@ def parse_args() -> Namespace:
     p.add_argument(
         '--search-delay',
         help='Override the time between searches in seconds',
+        type=int,
+    )
+    p.add_argument(
+        '--search-delay-lower',
+        help='Override the lower bound time between searches in seconds',
+        type=int,
+    )
+    p.add_argument(
+        '--search-delay-upper',
+        help='Override the upper bound time between searches in seconds',
         type=int,
     )
     p.add_argument(

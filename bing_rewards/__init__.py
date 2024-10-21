@@ -198,7 +198,7 @@ def search(count: int, words_gen: Generator, agent: str, options: Namespace, mob
 
         print(f'Search {i+1}: {query}')
         # Delay to let page load
-        time.sleep(options.search_delay)
+        time.sleep(random.uniform(options.search_delay_lower, options.search_delay_upper))
 
     # Skip killing the window if exit flag set
     if options.no_exit:
