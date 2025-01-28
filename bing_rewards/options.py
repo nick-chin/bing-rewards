@@ -18,6 +18,7 @@ except metadata.PackageNotFoundError:
 DESKTOP_COUNT = 33
 MOBILE_COUNT = 23
 
+
 # Time to allow Chrome to load in seconds
 LOAD_DELAY = 1.5
 # Time between searches in seconds
